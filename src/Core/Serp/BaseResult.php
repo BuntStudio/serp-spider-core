@@ -26,6 +26,15 @@ class BaseResult implements ResultDataInterface
     )
     {
         $this->types = is_array($types) ? $types : [$types];
+
+        if (
+            is_array($data) &&
+            isset($data['url']) &&
+            !empty($data['url'])
+        ) {
+            $data['url'] = \SM_Rank_Service::getUrlFromGoogleTranslate($data['url']);
+        }
+
         $this->data = $data;
         if ($domElement) {
             $this->nodePath = $domElement->getNodePath();
